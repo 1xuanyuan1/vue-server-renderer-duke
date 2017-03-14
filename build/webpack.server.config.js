@@ -1,17 +1,20 @@
 const webpack = require('webpack')
+const merge = require('webpack-merge')
+const utils = require('./utils')
 const base = require('./webpack.base.config')
 
-module.exports = Object.assign({}, base, {
+module.exports = merge(base, {
   target: 'node',
   devtool: false,
   entry: './src/server-entry.js',
-  output: Object.assign({}, base.output, {
+  output: {
     filename: 'server-bundle.js',
     libraryTarget: 'commonjs2'
-  }),
-  resolve: {
-    alias: Object.assign({}, base.resolve.alias, {
-      'create-api': './create-api-server.js'
+  },
+  module: {
+    rules: utils.styleLoaders({
+      sourceMap: false,
+      extract: false
     })
   },
   externals: Object.keys(require('../package.json').dependencies),

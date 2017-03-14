@@ -6,16 +6,6 @@ const SWPrecachePlugin = require('sw-precache-webpack-plugin')
 
 module.exports = {
     devtool: false,
-    module: {
-        rules: [{
-            test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-            loader: 'url-loader',
-            query: {
-                limit: 10000,
-                name: 'static/img/[name].[hash:7].[ext]'
-            }
-        }]
-    },
     plugins: [
         new ExtractTextPlugin('static/css/[name].[hash:7].css'),
         // Compress extracted CSS. We are using this plugin so that possible

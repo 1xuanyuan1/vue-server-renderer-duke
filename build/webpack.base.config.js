@@ -22,9 +22,16 @@ module.exports = {
     filename: '[name].[chunkhash].js'
   },
   resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    modules: [
+      resolve('src'),
+      resolve('node_modules')
+    ],
     alias: {
-      'public': path.resolve(__dirname, '../public'),
-      'components': path.resolve(__dirname, '../src/components'),
+      'vue$': 'vue/dist/vue.esm.js',
+      'assets': resolve('src/assets'),
+      'scss': resolve('src/scss'),
+      'components': resolve('src/components')
     }
   },
   module: {
@@ -58,7 +65,15 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          name: '[name].[ext]?[hash]'
+          name: 'static/img/[name].[hash:7].[ext]'
+        }
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        query: {
+          limit: 10000,
+          name: 'static/fonts/[name].[hash:7].[ext]'
         }
       }
     ]
